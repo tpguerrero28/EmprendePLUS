@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../repositories/auth_repository.dart';
 import '../widgets/app_button.dart';
 import '../widgets/app_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final AuthRepository? authRepository;
+
+  const LoginScreen({
+    super.key,
+    this.authRepository,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -18,9 +24,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController contrasenaController =
       TextEditingController();
 
-  final AuthRepository _authRepository = AuthRepository();
+  late final AuthRepository _authRepository;
 
   bool ocultarContrasena = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _authRepository = widget.authRepository ?? AuthRepository();
+  }
 
   @override
   void dispose() {
@@ -137,4 +149,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

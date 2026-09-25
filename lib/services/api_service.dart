@@ -4,7 +4,15 @@ import 'auth_service.dart';
 import 'dio_client.dart';
 
 class ApiService {
-  static final Dio _dio = DioClient.dio;
+  static Dio _dio = DioClient.dio;
+
+  static void configurarDioParaPruebas(Dio dio) {
+    _dio = dio;
+  }
+
+  static void restaurarDioReal() {
+    _dio = DioClient.dio;
+  }
 
   static Future<Usuario> iniciarSesion(
     String correo,
